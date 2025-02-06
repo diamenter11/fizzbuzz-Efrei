@@ -1,0 +1,29 @@
+name: Run FizzBuzz Tests
+
+on:
+  push:
+    branches:
+      - main  # Modifie si ta branche principale s'appelle autrement
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # Permet d’exécuter les tests manuellement
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt || echo "No requirements file found"
+
+      - name: Run unit tests
+        run: python -m unittest discover
